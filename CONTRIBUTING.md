@@ -1,7 +1,6 @@
 # Contributing
 
-Issues and pull requests are welcome. This is a community project, so they are reviewed on a
-best-effort basis, with no guarantee of a response.
+Issues and pull requests are welcome.
 
 Before you open a pull request:
 

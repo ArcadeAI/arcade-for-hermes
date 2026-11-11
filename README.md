@@ -1,10 +1,9 @@
 # Arcade for Hermes
 
-Arcade lets your agent check your email. Arcade for Hermes lets you start a company that has email.
+Start a company of Hermes agents that works in real tools: any kind of company, any Arcade tool, or your own custom MCP servers, with every action governed.
 
 > Built at Arcade by Thierry Damiba for the Hermes Agent Plugin Hackathon. It runs on Arcade's
-> public API and Arcade's official Hermes plugin. A community project, not an official Arcade.dev
-> product: see [Support](#support).
+> public API and Arcade's official Hermes plugin.
 
 A native [Hermes Agent](https://github.com/NousResearch/hermes-agent) plugin that gives each Hermes
 agent its own governed identity in your business apps through [Arcade](https://arcade.dev):
@@ -377,12 +376,9 @@ bash scripts/local_spike.sh                    # the checks that need a person: 
 
 Tests need no keys and no network. They load the directory as a package the way Hermes does.
 
-## Support
+## Security
 
-This is a community project built by Arcade.dev engineers. It is not an official Arcade.dev product
-and is not covered by Arcade.dev support or SLAs. Issues and PRs are monitored on a best-effort
-basis, with no guarantee of support. Report security issues to security@arcade.dev (see
-[SECURITY.md](SECURITY.md)).
+Report security issues to security@arcade.dev, not in a public issue. See [SECURITY.md](SECURITY.md).
 
 ## License
 
