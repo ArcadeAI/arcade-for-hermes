@@ -76,6 +76,14 @@ def _parse_result(result: Any) -> Any:
     return {"text": str(result)[:200]}
 
 
+def _failed(parsed: Any) -> bool:
+    """True when a tool result says the call did not succeed (error, denial or a sign-in request)."""
+    if not isinstance(parsed, Mapping):
+        return False
+    return bool(parsed.get("error") or parsed.get("denied") or parsed.get("authorization_required")
+                or parsed.get("status") == "authorization_required")
+
+
 class Governor:
     def __init__(self, runtime: Runtime) -> None:
         self.runtime = runtime
@@ -340,7 +348,8 @@ class Governor:
             logger.warning("arcade-for-hermes: could not write receipt: %s", exc)
         # The model never sees the card: Hermes asks the person and runs the tool. Tell it what happened,
         # so it does not report "no card appeared" for a send the founder approved.
-        if decision == "approved" and approver:
+        # Only on success: a note saying an approved action ran is false when the call then failed.
+        if decision == "approved" and approver and outcome == "ok":
             choice = approver.get("choice") or "approved"
             note = (f"[Arcade for Hermes] The founder approved this {record.get('verb') or 'ship'} action on the "
                     f"approval card ({choice}). It ran as {record.get('role') or 'this role'}.")
@@ -359,7 +368,7 @@ class Governor:
                 record = self._pending.get(fp) or self._pending_like(tool_name, args) or {}
                 approver = self._approvals.get(record.get("action_key") or "")
                 if note is None and record.get("decision") == "pending_approval" and approver \
-                        and approver.get("choice") not in _DENIED_CHOICES:
+                        and approver.get("choice") not in _DENIED_CHOICES and not _failed(_parse_result(result)):
                     note = (f"[Arcade for Hermes] The founder approved this {record.get('verb') or 'ship'} action "
                             f"on the approval card ({approver.get('choice') or 'approved'}). "
                             f"It ran as {record.get('role') or 'this role'}.")

@@ -164,3 +164,21 @@ def test_the_model_is_told_when_the_transform_runs_before_post_tool_call(gate):
     card = gov.pre_tool_call(tool_name=USE, args=denied)
     gov.post_approval_response(pattern_key="plugin_rule:" + card["rule_key"], choice="deny", surface="cli")
     assert gov.transform_tool_result(tool_name=USE, args=denied, result="{}") is None
+
+
+def test_no_approval_note_when_the_approved_call_fails(gate):
+    # The founder approved the card, but the call errored: the model must not be told it ran.
+    err = json.dumps({"error": "tool not found, it is not enabled for this gateway"})
+    _, gov = gate()
+    args = _call("Gmail.SendEmail", {"recipient": "a@b.co", "body": "hi"})
+    card = gov.pre_tool_call(tool_name=USE, args=args)
+    gov.post_approval_response(pattern_key="plugin_rule:" + card["rule_key"], choice="once", surface="cli")
+    assert gov.transform_tool_result(tool_name=USE, args=args, result=err) is None      # transform first
+    gov.post_tool_call(tool_name=USE, args=args, result=err)
+    assert gov.transform_tool_result(tool_name=USE, args=args, result=err) is None
+
+    _, gov = gate()
+    card = gov.pre_tool_call(tool_name=USE, args=args)
+    gov.post_approval_response(pattern_key="plugin_rule:" + card["rule_key"], choice="once", surface="cli")
+    gov.post_tool_call(tool_name=USE, args=args, result=err)                               # post first
+    assert gov.transform_tool_result(tool_name=USE, args=args, result=err) is None
