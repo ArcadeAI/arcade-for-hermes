@@ -1,0 +1,798 @@
+{
+ "trading": {
+  "version": 1,
+  "default": "deny",
+  "principal_prefix": "bowser",
+  "toolkits": {
+   "github": [
+    "Github",
+    "GitHub"
+   ],
+   "google_docs": [
+    "GoogleDocs",
+    "Google_Docs"
+   ],
+   "alpaca": [
+    "ArcadeAlpaca"
+   ]
+  },
+  "rules": [
+   {
+    "tool": "Github.ListIssues",
+    "verb": "look"
+   },
+   {
+    "tool": "Github.GetIssue",
+    "verb": "look"
+   },
+   {
+    "tool": "Github.QueryIssues",
+    "verb": "look"
+   },
+   {
+    "tool": "Github.GetRepository",
+    "verb": "look"
+   },
+   {
+    "tool": "Github.ListRepositoryLabels",
+    "verb": "look"
+   },
+   {
+    "tool": "Github.ListRepositoryConversationComments",
+    "verb": "look"
+   },
+   {
+    "tool": "Github.WhoAmI",
+    "verb": "look"
+   },
+   {
+    "tool": "Github.CreateIssue",
+    "verb": "draft"
+   },
+   {
+    "tool": "Github.CreateIssueComment",
+    "verb": "draft"
+   },
+   {
+    "tool": "Github.UpdateIssueLabels",
+    "verb": "draft"
+   },
+   {
+    "name": "close-issue",
+    "tool": "Github.UpdateIssue",
+    "verb": "ship",
+    "input": {
+     "state": "closed"
+    }
+   },
+   {
+    "tool": "Github.UpdateIssue",
+    "verb": "draft"
+   },
+   {
+    "tool": "GoogleDocs.GetDocumentById",
+    "verb": "look"
+   },
+   {
+    "tool": "GoogleDocs.GetDocumentAsDocmd",
+    "verb": "look"
+   },
+   {
+    "tool": "GoogleDocs.GetDocumentMetadata",
+    "verb": "look"
+   },
+   {
+    "tool": "GoogleDocs.SearchDocuments",
+    "verb": "look"
+   },
+   {
+    "tool": "GoogleDocs.SearchAndRetrieveDocuments",
+    "verb": "look"
+   },
+   {
+    "tool": "GoogleDocs.ListDocumentComments",
+    "verb": "look"
+   },
+   {
+    "tool": "GoogleDocs.WhoAmI",
+    "verb": "look"
+   },
+   {
+    "name": "edit-document-read",
+    "tool": "GoogleDocs.EditDocument",
+    "verb": "look",
+    "input": {
+     "requests": "!"
+    }
+   },
+   {
+    "tool": "GoogleDocs.EditDocument",
+    "verb": "draft"
+   },
+   {
+    "tool": "GoogleDocs.CreateBlankDocument",
+    "verb": "draft"
+   },
+   {
+    "tool": "GoogleDocs.CreateDocumentFromText",
+    "verb": "draft"
+   },
+   {
+    "tool": "GoogleDocs.InsertTextAtEndOfDocument",
+    "verb": "draft"
+   },
+   {
+    "tool": "GoogleDocs.CommentOnDocument",
+    "verb": "draft"
+   },
+   {
+    "tool": "koopa_report",
+    "verb": "look",
+    "toolkit": "koopa"
+   },
+   {
+    "tool": "koopa_propose",
+    "verb": "draft",
+    "toolkit": "koopa"
+   },
+   {
+    "tool": "koopa_execute",
+    "verb": "ship",
+    "toolkit": "koopa",
+    "amount": "notional"
+   },
+   {
+    "tool": "ArcadeAlpaca.GetAccount",
+    "verb": "look"
+   },
+   {
+    "tool": "ArcadeAlpaca.ListPositions",
+    "verb": "look"
+   },
+   {
+    "tool": "ArcadeAlpaca.GetPosition",
+    "verb": "look"
+   },
+   {
+    "tool": "ArcadeAlpaca.ListOrders",
+    "verb": "look"
+   },
+   {
+    "tool": "ArcadeAlpaca.GetOrder",
+    "verb": "look"
+   },
+   {
+    "tool": "ArcadeAlpaca.ListActivities",
+    "verb": "look"
+   },
+   {
+    "tool": "ArcadeAlpaca.GetClock",
+    "verb": "look"
+   },
+   {
+    "tool": "ArcadeAlpaca.GetAsset",
+    "verb": "look"
+   },
+   {
+    "tool": "ArcadeAlpaca.GetLatestQuote",
+    "verb": "look"
+   },
+   {
+    "tool": "ArcadeAlpaca.SubmitOrder",
+    "verb": "ship",
+    "amount": "notional"
+   },
+   {
+    "tool": "ArcadeAlpaca.ReplaceOrder",
+    "verb": "ship"
+   },
+   {
+    "tool": "ArcadeAlpaca.CancelOrder",
+    "verb": "ship",
+    "exit": true
+   },
+   {
+    "tool": "ArcadeAlpaca.CancelAllOrders",
+    "verb": "ship",
+    "exit": true
+   },
+   {
+    "tool": "ArcadeAlpaca.ClosePosition",
+    "verb": "ship",
+    "exit": true
+   }
+  ],
+  "roles": {
+   "cos": {
+    "grants": [
+     {
+      "toolkit": "github",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "google_docs",
+      "verbs": [
+       "look"
+      ]
+     },
+     {
+      "toolkit": "koopa",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "alpaca",
+      "verbs": [
+       "look"
+      ]
+     }
+    ],
+    "deny_reasons": {
+     "alpaca.ship": "orders go through koopa_execute only, after the risk checks"
+    }
+   },
+   "reporter": {
+    "grants": [
+     {
+      "toolkit": "github",
+      "verbs": [
+       "look",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "google_docs",
+      "verbs": [
+       "look",
+       "draft"
+      ]
+     },
+     {
+      "toolkit": "koopa",
+      "verbs": [
+       "look"
+      ]
+     },
+     {
+      "toolkit": "alpaca",
+      "verbs": [
+       "look"
+      ]
+     }
+    ],
+    "deny_reasons": {
+     "koopa.draft": "the reporter reports; it does not propose trades",
+     "koopa.ship": "the reporter reports; money moves only on the founder's own card",
+     "alpaca.ship": "orders go through koopa_execute only, after the risk checks"
+    }
+   },
+   "cos_capped": {
+    "grants": [
+     {
+      "toolkit": "github",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "google_docs",
+      "verbs": [
+       "look"
+      ]
+     },
+     {
+      "toolkit": "koopa",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "alpaca",
+      "verbs": [
+       "look"
+      ]
+     }
+    ],
+    "deny_reasons": {
+     "alpaca.ship": "orders go through koopa_execute only, after the risk checks"
+    },
+    "limits": {
+     "per_call": 500,
+     "per_day": 1000
+    }
+   }
+  }
+ },
+ "shirts": {
+  "version": 1,
+  "default": "deny",
+  "principal_prefix": "loudtees",
+  "toolkits": {
+   "gmail": [
+    "Gmail"
+   ],
+   "shopify": [
+    "Shopify"
+   ],
+   "stripe": [
+    "Stripe"
+   ],
+   "sheets": [
+    "GoogleSheets"
+   ]
+  },
+  "rules": [
+   {
+    "tool": "Gmail.ListEmails",
+    "verb": "look"
+   },
+   {
+    "name": "email-inside",
+    "tool": "Gmail.SendEmail",
+    "verb": "draft",
+    "input": {
+     "recipient": "*@loudtees.co"
+    }
+   },
+   {
+    "name": "email-outside",
+    "tool": "Gmail.SendEmail",
+    "verb": "ship"
+   },
+   {
+    "tool": "Shopify.GetOrder",
+    "verb": "look"
+   },
+   {
+    "tool": "Shopify.ListOrders",
+    "verb": "look"
+   },
+   {
+    "tool": "GoogleSheets.GetSpreadsheet",
+    "verb": "look"
+   },
+   {
+    "tool": "Shopify.CreateDiscountCode",
+    "verb": "ship"
+   },
+   {
+    "name": "price-change",
+    "tool": "Shopify.UpdateProduct",
+    "verb": "ship",
+    "input": {
+     "price": "*"
+    }
+   },
+   {
+    "tool": "Shopify.UpdateProduct",
+    "verb": "draft"
+   },
+   {
+    "tool": "Stripe.CreateRefund",
+    "verb": "ship",
+    "amount": "amount"
+   }
+  ],
+  "roles": {
+   "support": {
+    "grants": [
+     {
+      "toolkit": "gmail",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "shopify",
+      "verbs": [
+       "look"
+      ]
+     }
+    ],
+    "deny_reasons": {
+     "stripe.ship": "support answers customers; refunds go to the ops lead's card",
+     "shopify.ship": "support doesn't set prices or discounts",
+     "sheets": "supplier costs stay with ops"
+    }
+   },
+   "ops": {
+    "grants": [
+     {
+      "toolkit": "gmail",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "shopify",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "stripe",
+      "verbs": [
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "sheets",
+      "verbs": [
+       "look"
+      ]
+     }
+    ]
+   },
+   "ops_capped": {
+    "grants": [
+     {
+      "toolkit": "gmail",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "shopify",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "stripe",
+      "verbs": [
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "sheets",
+      "verbs": [
+       "look"
+      ]
+     }
+    ],
+    "limits": {
+     "per_call": 50,
+     "per_day": 150
+    }
+   }
+  }
+ },
+ "finance": {
+  "version": 1,
+  "default": "deny",
+  "principal_prefix": "ledgerline",
+  "toolkits": {
+   "gmail": [
+    "Gmail"
+   ],
+   "quickbooks": [
+    "QuickBooks"
+   ],
+   "payments": [
+    "Payments"
+   ],
+   "drive": [
+    "GoogleDrive"
+   ]
+  },
+  "rules": [
+   {
+    "tool": "Gmail.ListEmails",
+    "verb": "look"
+   },
+   {
+    "name": "email-inside",
+    "tool": "Gmail.SendEmail",
+    "verb": "draft",
+    "input": {
+     "recipient": "*@ledgerline.io"
+    }
+   },
+   {
+    "name": "email-outside",
+    "tool": "Gmail.SendEmail",
+    "verb": "ship"
+   },
+   {
+    "tool": "QuickBooks.GetVendor",
+    "verb": "look"
+   },
+   {
+    "tool": "QuickBooks.ListBills",
+    "verb": "look"
+   },
+   {
+    "tool": "QuickBooks.CreateBill",
+    "verb": "draft"
+   },
+   {
+    "tool": "QuickBooks.UpdateVendorBankAccount",
+    "verb": "ship"
+   },
+   {
+    "tool": "Payments.PayBill",
+    "verb": "ship",
+    "amount": "amount"
+   },
+   {
+    "tool": "GoogleDrive.SearchFiles",
+    "verb": "look"
+   }
+  ],
+  "roles": {
+   "ap_clerk": {
+    "grants": [
+     {
+      "toolkit": "gmail",
+      "verbs": [
+       "look",
+       "draft"
+      ]
+     },
+     {
+      "toolkit": "quickbooks",
+      "verbs": [
+       "look",
+       "draft"
+      ]
+     }
+    ],
+    "deny_reasons": {
+     "quickbooks.ship": "the clerk enters bills; bank details change only on the controller's card",
+     "payments": "the clerk enters bills; the controller pays them",
+     "gmail.ship": "the clerk doesn't email outside the company",
+     "drive": "payroll is the controller's"
+    }
+   },
+   "controller": {
+    "grants": [
+     {
+      "toolkit": "gmail",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "quickbooks",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "payments",
+      "verbs": [
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "drive",
+      "verbs": [
+       "look"
+      ]
+     }
+    ]
+   },
+   "controller_capped": {
+    "grants": [
+     {
+      "toolkit": "gmail",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "quickbooks",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "payments",
+      "verbs": [
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "drive",
+      "verbs": [
+       "look"
+      ]
+     }
+    ],
+    "limits": {
+     "per_call": 2500,
+     "per_day": 5000
+    }
+   }
+  }
+ },
+ "legal": {
+  "version": 1,
+  "default": "deny",
+  "principal_prefix": "hartvale",
+  "toolkits": {
+   "gmail": [
+    "Gmail"
+   ],
+   "google_docs": [
+    "GoogleDocs"
+   ],
+   "docusign": [
+    "DocuSign"
+   ],
+   "escrow": [
+    "Escrow"
+   ]
+  },
+  "rules": [
+   {
+    "tool": "Gmail.ListEmails",
+    "verb": "look"
+   },
+   {
+    "name": "email-inside",
+    "tool": "Gmail.SendEmail",
+    "verb": "draft",
+    "input": {
+     "recipient": "*@hartvale.law"
+    }
+   },
+   {
+    "name": "email-outside",
+    "tool": "Gmail.SendEmail",
+    "verb": "ship"
+   },
+   {
+    "tool": "GoogleDocs.SearchAndRetrieveDocuments",
+    "verb": "look"
+   },
+   {
+    "name": "edit-document-read",
+    "tool": "GoogleDocs.EditDocument",
+    "verb": "look",
+    "input": {
+     "requests": "!"
+    }
+   },
+   {
+    "tool": "GoogleDocs.EditDocument",
+    "verb": "draft"
+   },
+   {
+    "tool": "DocuSign.SendEnvelope",
+    "verb": "ship"
+   },
+   {
+    "tool": "Escrow.GetBalance",
+    "verb": "look"
+   },
+   {
+    "tool": "Escrow.ReleaseFunds",
+    "verb": "ship",
+    "amount": "amount"
+   }
+  ],
+  "roles": {
+   "paralegal": {
+    "grants": [
+     {
+      "toolkit": "gmail",
+      "verbs": [
+       "look",
+       "draft"
+      ]
+     },
+     {
+      "toolkit": "google_docs",
+      "verbs": [
+       "look",
+       "draft"
+      ]
+     }
+    ],
+    "deny_reasons": {
+     "gmail.ship": "nothing leaves the firm without a partner",
+     "docusign": "only a partner sends for signature",
+     "escrow": "client funds move only on a partner's card"
+    }
+   },
+   "partner": {
+    "grants": [
+     {
+      "toolkit": "gmail",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "google_docs",
+      "verbs": [
+       "look",
+       "draft"
+      ]
+     },
+     {
+      "toolkit": "docusign",
+      "verbs": [
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "escrow",
+      "verbs": [
+       "look",
+       "ship"
+      ]
+     }
+    ]
+   },
+   "partner_capped": {
+    "grants": [
+     {
+      "toolkit": "gmail",
+      "verbs": [
+       "look",
+       "draft",
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "google_docs",
+      "verbs": [
+       "look",
+       "draft"
+      ]
+     },
+     {
+      "toolkit": "docusign",
+      "verbs": [
+       "ship"
+      ]
+     },
+     {
+      "toolkit": "escrow",
+      "verbs": [
+       "look",
+       "ship"
+      ]
+     }
+    ],
+    "limits": {
+     "per_call": 1000,
+     "per_day": 1000
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,26 @@
+# Loud Tees: a shirt shop run by agents. Sells through Stripe payment links, talks on X and Reddit.
+name: Loud Tees
+pitch: Limited-run graphic tees. Agents design the drop, post it, answer customers and handle refunds.
+limits: {per_call: 2000, per_day: 5000}         # every role without its own: $20 a refund, $50 a day (cents)
+lead: ops_lead
+roles:
+  ops_lead:
+    title: ops lead
+    does: Owns money and the store. Creates products and payment links, issues refunds.
+    apps: [Stripe, Gmail, GoogleSheets]
+    ships: [Stripe, Gmail]
+    limits: {per_call: 5000, per_day: 20000}      # Stripe amounts are cents: $50 a refund, $200 a day
+  support:
+    title: support agent
+    does: Answers every customer email the same day. Drafts replies; looks up orders in Stripe.
+    apps: [Gmail, Stripe]
+  marketer:
+    title: marketer
+    does: Drafts launch posts for X and Reddit and tracks what lands in a sheet.
+    apps: [X, Reddit, GoogleSheets]
+    ships: [X]
+money:
+  - {tool: Stripe.CreateRefund, amount: amount}
+tasks:
+  - {title: "Answer the inbox", role: support, every: "everyday 10:00", body: "Read unanswered customer email and draft a reply to each."}
+  - {title: "Plan the next drop", role: marketer, body: "Look at what sold in the sheet and draft three posts for the next drop."}

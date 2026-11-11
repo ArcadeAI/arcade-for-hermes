@@ -1,0 +1,13 @@
+.arcade-floor {
+  display: flex;
+  justify-content: center;
+  padding: 12px 0;
+  background: #0d0b14;
+  min-height: 100%;
+}
+.arcade-floor-canvas {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  display: block;
+  box-shadow: 0 0 0 4px #0d0b14, 0 0 0 6px #4a3f7a;
+}

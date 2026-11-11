@@ -1,0 +1,61 @@
+# Arcade for Hermes: starter policy. Copy to <HERMES_HOME>/arcade/policy.yaml and edit.
+#
+# Three verbs: look (read), draft (create or edit), ship (anything others see, or that moves money).
+# look and draft are allowed with a receipt; ship goes to Hermes's approval gate; anything the policy
+# does not name is denied. Tool names are Arcade's own (run `arcade_search_tools` to list them).
+
+version: 1
+default: deny
+principal_prefix: agent           # Arcade user_id = "agent/<role>"
+
+toolkits:
+  github: [Github, GitHub]
+  google_docs: [GoogleDocs]
+  googlesearch: [GoogleSearch]
+  googlenews: [GoogleNews]
+
+# A verb for every tool in Arcade's catalog (data/arcade_verbs.json), so a rule is needed only where
+# you want something other than the default. Explicit rules below still win.
+catalog: true
+
+connect:
+  github: Github.WhoAmI
+  google_docs: GoogleDocs.WhoAmI
+
+# Hermes profile -> role. A profile that is not listed, and is not itself a role name, gets no access.
+profile_roles:
+  default: operator
+
+rules:
+  - {tool: Github.ListIssues, verb: look}
+  - {tool: Github.GetIssue, verb: look}
+  - {tool: Github.GetRepository, verb: look}
+  - {tool: Github.WhoAmI, verb: look}
+  - {tool: Github.CreateIssue, verb: draft}
+  - {tool: Github.CreateIssueComment, verb: draft}
+  - {tool: Github.UpdateIssue, verb: ship, input: {state: closed}}
+  - {tool: Github.UpdateIssue, verb: draft}
+  - {tool: GoogleDocs.GetDocumentById, verb: look}
+  - {tool: GoogleDocs.SearchDocuments, verb: look}
+  - {tool: GoogleDocs.WhoAmI, verb: look}
+  - {tool: GoogleDocs.CreateDocumentFromText, verb: draft}
+  - {tool: GoogleDocs.InsertTextAtEndOfDocument, verb: draft}
+
+roles:
+  operator:
+    grants:
+      - {toolkit: github, verbs: [look, draft, ship]}
+      - {toolkit: google_docs, verbs: [look, draft]}
+      - {toolkit: googlesearch, verbs: [look]}      # research before founding a company
+      - {toolkit: googlenews, verbs: [look]}
+
+# --- Agents that move money (optional) ---------------------------------------------------------
+# A rule may name the input that carries the amount, and mark exits:
+#   - {tool: ArcadeAlpaca.SubmitOrder, verb: ship, amount: notional}
+#   - {tool: ArcadeAlpaca.ClosePosition, verb: ship, exit: true}
+# A role may then carry limits; a call over them is denied before any card, and a call whose amount
+# cannot be read is denied too:
+#   trader:
+#     grants: [{toolkit: alpaca, verbs: [look, ship]}]
+#     limits: {per_call: 500, per_day: 2000}
+# /arcade halt [reason] denies every draft and ship until /arcade resume; reads and exits still work.

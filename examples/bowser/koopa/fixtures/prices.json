@@ -1,0 +1,200 @@
+{
+  "AAVE/USD": {
+    "price": 129.8515,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:19Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "ADA/USD": {
+    "price": 0.1796855,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:27Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "ARB/USD": {
+    "price": 0.1678285,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:10Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "AVAX/USD": {
+    "price": 8.15475,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:43:52Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "BAT/USD": {
+    "price": 0.11995,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:03Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "BCH/USD": {
+    "price": 245.8245,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:18Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "BONK/USD": {
+    "price": 2.78e-06,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:15Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "BTC/USD": {
+    "price": 75671.97,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:24Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "CRV/USD": {
+    "price": 0.2643565,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:16Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "DOGE/USD": {
+    "price": 0.0708975,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:20Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "DOT/USD": {
+    "price": 0.894695,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:12Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "ETH/USD": {
+    "price": 2229.3565,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:26Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "FIL/USD": {
+    "price": 0.7764255,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:43:40Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "GRT/USD": {
+    "price": 0.0186355,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:16Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "HYPE/USD": {
+    "price": 77.15,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:05Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "LDO/USD": {
+    "price": 0.3223325,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:06Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "LINK/USD": {
+    "price": 10.7105,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:15Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "LTC/USD": {
+    "price": 52.0554,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:27Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "ONDO/USD": {
+    "price": 0.357695,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:43:47Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "PAXG/USD": {
+    "price": 4056.61,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:38:45Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "PEPE/USD": {
+    "price": 4.87e-06,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:14Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "POL/USD": {
+    "price": 0.0901623,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:43:57Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "RENDER/USD": {
+    "price": 1.527215,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:02Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "SHIB/USD": {
+    "price": 4.46e-06,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:43:48Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "SKY/USD": {
+    "price": 0.0637516,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:09Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "SOL/USD": {
+    "price": 88.8066,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:26Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "SUSHI/USD": {
+    "price": 0.178142,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:20Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "TRUMP/USD": {
+    "price": 1.1857,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:14Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "UNI/USD": {
+    "price": 7.04307,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:43:54Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "WIF/USD": {
+    "price": 0.160525,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:00Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "XRP/USD": {
+    "price": 1.16355,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:43:54Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "XTZ/USD": {
+    "price": 0.2599,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:44:12Z",
+    "source": "Alpaca crypto latest quote mid"
+  },
+  "YFI/USD": {
+    "price": 2007.507,
+    "label": "FIXTURE",
+    "as_of": "2026-11-08T06:43:38Z",
+    "source": "Alpaca crypto latest quote mid"
+  }
+}

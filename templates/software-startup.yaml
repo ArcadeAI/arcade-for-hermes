@@ -1,0 +1,26 @@
+# Kitecat Labs: a software startup run by agents, on the deepest part of Arcade's official gateway.
+name: Kitecat Labs
+pitch: A three-agent software company. It files the bugs, writes the fixes and deploys them; merges and deploys wait for the founder.
+lead: eng_lead
+roles:
+  eng_lead:
+    title: engineering lead
+    does: Owns the roadmap and the release. Reviews pull requests, merges them and deploys to Vercel.
+    apps: [Github, Linear, Vercel, Slack]
+    ships: [Github, Vercel]
+  engineer:
+    title: engineer
+    does: Takes the top Linear issue, writes the fix on a branch and opens a pull request. Never merges.
+    apps: [Github, Linear]
+  oncall:
+    title: on-call
+    does: Watches PagerDuty and PostHog errors, files what it finds in Linear, posts the status to Slack.
+    apps: [Pagerduty, Posthog, Linear, Slack]
+    ships: [Slack]
+tasks:
+  - {title: "Triage", role: oncall, every: "weekdays 09:00",
+     body: "List open incidents and the top PostHog errors. File one Linear issue per real problem; post a three-line status to Slack."}
+  - {title: "Fix the top bug", role: engineer,
+     body: "Take the highest-priority Linear issue, write the fix on a branch and open a pull request that links it."}
+  - {title: "Ship it", role: eng_lead,
+     body: "Review the open pull request. If it is good, merge it and deploy; both wait for the founder."}

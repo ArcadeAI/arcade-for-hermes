@@ -1,0 +1,23 @@
+name: arena
+version: "0.1.0"
+manifest_version: 2
+api_version: 1
+license: Apache-2.0
+author: Thierry Damiba
+description: >
+  Two paper desks fight on a simulated market for a few minutes. Each desk is one trader or a small
+  firm (analysts, a skeptic, a CIO): arena_market (look), arena_note (talk), arena_trade (draft,
+  inside the founder's mandate, the trader or CIO only). SIMULATED MARKET, PAPER.
+requires_hermes: ">=0.22.5"
+provides_tools:
+  - arena_market
+  - arena_note
+  - arena_borrow
+  - arena_history
+  - arena_thesis
+  - arena_trade
+provides_hooks:
+  - pre_api_request
+  - post_api_request
+  - api_request_error
+  - on_interim_message

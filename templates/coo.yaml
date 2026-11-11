@@ -1,0 +1,13 @@
+# One agent, before there is a company: a COO run by Hermes, on Arcade's official gateway.
+name: Solo COO
+pitch: A chief operating officer for one founder. Reads the inbox and the calendar, drafts everything, sends nothing without a yes.
+lead: coo
+roles:
+  coo:
+    title: COO
+    does: Runs the founder's day. Triages Gmail, keeps the calendar honest, writes the weekly memo in Docs, posts updates to Slack.
+    apps: [Gmail, GoogleCalendar, GoogleDocs, Slack, Notion]
+    ships: [Gmail, GoogleCalendar, Slack]
+tasks:
+  - {title: "Morning brief", role: coo, every: "weekdays 08:00",
+     body: "Read yesterday's unanswered email and today's calendar. Draft replies; write a five-line brief."}

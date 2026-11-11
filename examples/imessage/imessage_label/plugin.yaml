@@ -1,0 +1,12 @@
+name: imessage-label
+version: "0.1.0"
+description: >
+  Labels every message Hermes sends on the BlueBubbles (iMessage) platform with "Hermes: ", so a
+  line shared with another agent shows who is talking. Wraps the adapter's one text post, so
+  replies, approval requests, errors, cron and home-channel deliveries and every paragraph bubble
+  carry the label. Never doubles it.
+author: Thierry Damiba
+license: Apache-2.0
+requires_hermes: ">=0.22.5"
+provides_tools: []
+provides_hooks: []

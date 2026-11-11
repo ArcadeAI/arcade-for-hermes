@@ -1,0 +1,34 @@
+# Bowser Capital: a paper trading desk. The flagship: every piece of it ran for real on 2026-11-08.
+name: Bowser Capital
+# Your own gateway: ArcadeAlpaca is Brise de Mer's toolkit, so the desk runs on a project gateway that serves it.
+gateway: own
+pitch: A small trading desk where agents research, argue and propose, and only the founder's yes moves money.
+limits: {per_call: 250, per_day: 500}           # every role without its own (dollars)
+lead: chief_of_staff
+roles:
+  chief_of_staff:
+    title: chief of staff
+    does: Runs the committee. Turns approved proposals into orders and closes work orders.
+    apps: [Github, GoogleDocs, ArcadeAlpaca]
+    ships: [Github, ArcadeAlpaca]
+    limits: {per_call: 1000, per_day: 2500}      # dollars, read from SubmitOrder's notional
+  analyst:
+    title: analyst
+    does: Reads the market and the book, writes a one-page thesis in Google Docs.
+    apps: [GoogleDocs, ArcadeAlpaca, GoogleNews, GoogleFinance]
+  skeptic:
+    title: skeptic
+    does: Argues against every thesis in a GitHub comment. Never edits anyone's doc.
+    apps: [Github, GoogleDocs, ArcadeAlpaca]
+  reporter:
+    title: reporter
+    does: Writes the daily brief, then asks to close the work order.
+    apps: [Github, GoogleDocs, ArcadeAlpaca]
+    ships: [Github]
+money:
+  - {tool: ArcadeAlpaca.SubmitOrder, amount: notional}
+tasks:
+  - {title: "Morning thesis", role: analyst, every: "weekdays 08:30",
+     body: "Read the book and today's news. Write a one-page thesis for at most one trade, sized to the limits."}
+  - {title: "Challenge the thesis", role: skeptic, body: "Find today's thesis and argue against it in a comment on the work order."}
+  - {title: "Daily brief", role: reporter, every: "weekdays 17:00", body: "Write the daily brief to a new Google Doc, then ask to close the work order."}

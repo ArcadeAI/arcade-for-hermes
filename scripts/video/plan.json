@@ -1,0 +1,492 @@
+[
+ {
+  "kind": "card",
+  "seconds": 4,
+  "lines": [
+   [
+    "Arcade for Hermes",
+    110,
+    [
+     240,
+     236,
+     226
+    ],
+    true,
+    false
+   ],
+   [
+    "Start a company that runs on Hermes.",
+    48,
+    [
+     150,
+     146,
+     170
+    ],
+    false,
+    false
+   ],
+   [
+    "Arcade gives it the tools. You keep the approve button.",
+    48,
+    [
+     150,
+     146,
+     170
+    ],
+    false,
+    false
+   ],
+   [
+    "Nous hackathon entry by Thierry Damiba, who works at Arcade",
+    28,
+    [
+     150,
+     146,
+     170
+    ],
+    false,
+    false
+   ]
+  ]
+ },
+ {
+  "kind": "shot",
+  "t0": 1,
+  "t1": 3,
+  "cam": [
+   [
+    "full"
+   ]
+  ],
+  "text": "Four companies, each run by its own Hermes",
+  "tail": 3,
+  "mask": [
+   [
+    2790,
+    1585,
+    3410,
+    1617
+   ]
+  ]
+ },
+ {
+  "kind": "shot",
+  "t0": 3,
+  "t1": 8,
+  "cam": [
+   [
+    "full"
+   ],
+   [
+    "box",
+    0,
+    620,
+    1977,
+    1180
+   ]
+  ],
+  "text": "1  The COO.  \"Email me a brief of my day. Send it.\"",
+  "mask": [
+   [
+    2790,
+    1585,
+    3410,
+    1617
+   ]
+  ]
+ },
+ {
+  "kind": "shot",
+  "t0": 12,
+  "t1": 35,
+  "speed": 3,
+  "cam": [
+   [
+    "box",
+    1985,
+    300,
+    3420,
+    1100
+   ]
+  ],
+  "text": "It reads your calendar and inbox on its own. Looks just run",
+  "mask": [
+   [
+    2790,
+    1585,
+    3410,
+    1617
+   ]
+  ]
+ },
+ {
+  "kind": "shot",
+  "t0": 34.5,
+  "t1": 39.6,
+  "cam": [
+   [
+    "box",
+    40,
+    1520,
+    976,
+    1990
+   ]
+  ],
+  "hl": [
+   30,
+   1560,
+   990,
+   1985
+  ],
+  "hl_at": 2.4,
+  "text": "Sending is a ship action. Hermes stops and asks you",
+  "tail": 2.5,
+  "mask": [
+   [
+    2790,
+    1585,
+    3410,
+    1617
+   ]
+  ]
+ },
+ {
+  "kind": "shot",
+  "t0": 40.5,
+  "t1": 45.5,
+  "cam": [
+   [
+    "box",
+    1985,
+    1430,
+    3420,
+    1660
+   ]
+  ],
+  "hl": [
+   1992,
+   1612,
+   3410,
+   1648
+  ],
+  "hl_at": 3.2,
+  "text": "You approve once. The send runs and the gate records it",
+  "tail": 2.5,
+  "mask": [
+   [
+    2790,
+    1585,
+    3410,
+    1617
+   ]
+  ]
+ },
+ {
+  "kind": "shot",
+  "t0": 45.5,
+  "t1": 47.5,
+  "cam": [
+   [
+    "box",
+    0,
+    1560,
+    1977,
+    1720
+   ]
+  ],
+  "hl": [
+   20,
+   1630,
+   1800,
+   1702
+  ],
+  "focus": true,
+  "text": "And Hermes knows it was you who approved it",
+  "tail": 3,
+  "mask": [
+   [
+    2790,
+    1585,
+    3410,
+    1617
+   ]
+  ],
+  "hl_at": 2.4
+ },
+ {
+  "kind": "shot",
+  "t0": 58.6,
+  "t1": 62,
+  "cam": [
+   [
+    "box",
+    0,
+    700,
+    1977,
+    1500
+   ]
+  ],
+  "hl": [
+   20,
+   1150,
+   1960,
+   1495
+  ],
+  "hl_at": 2.4,
+  "text": "Ask it why, and it explains Arcade and the plugin",
+  "tail": 6
+ },
+ {
+  "kind": "shot",
+  "t0": 68.5,
+  "t1": 73,
+  "cam": [
+   [
+    "box",
+    0,
+    800,
+    1977,
+    1000
+   ]
+  ],
+  "text": "2  Kitecat Labs, a software startup"
+ },
+ {
+  "kind": "shot",
+  "t0": 82.8,
+  "t1": 86,
+  "cam": [
+   [
+    "box",
+    0,
+    1370,
+    1977,
+    1510
+   ]
+  ],
+  "hl": [
+   20,
+   1390,
+   1960,
+   1500
+  ],
+  "text": "The eng lead reads its GitHub issues through Arcade and picks the fix",
+  "tail": 3.5,
+  "hl_at": 2.4
+ },
+ {
+  "kind": "shot",
+  "t0": 91.5,
+  "t1": 97.5,
+  "cam": [
+   [
+    "box",
+    0,
+    760,
+    1977,
+    960
+   ]
+  ],
+  "text": "3  Loud Tees. The founder turns the dial to yolo: no more cards"
+ },
+ {
+  "kind": "shot",
+  "t0": 100.5,
+  "t1": 105,
+  "cam": [
+   [
+    "box",
+    0,
+    650,
+    1977,
+    1050
+   ]
+  ],
+  "text": "A furious customer wants $500 back, right now"
+ },
+ {
+  "kind": "shot",
+  "t0": 115,
+  "t1": 119,
+  "cam": [
+   [
+    "box",
+    1985,
+    1430,
+    3420,
+    1660
+   ]
+  ],
+  "hl": [
+   1992,
+   1588,
+   3410,
+   1642
+  ],
+  "hl_at": 2.4,
+  "text": "Yolo means no cards, not no limits. Over the cap, nothing runs",
+  "tail": 3
+ },
+ {
+  "kind": "shot",
+  "t0": 119,
+  "t1": 121,
+  "cam": [
+   [
+    "box",
+    0,
+    1420,
+    1977,
+    1620
+   ]
+  ],
+  "hl": [
+   20,
+   1440,
+   1960,
+   1600
+  ],
+  "text": "No money moved",
+  "tail": 3,
+  "hl_at": 2.4
+ },
+ {
+  "kind": "shot",
+  "t0": 127,
+  "t1": 131,
+  "cam": [
+   [
+    "box",
+    0,
+    820,
+    1977,
+    1000
+   ]
+  ],
+  "text": "4  Bowser Capital: a trading desk on its own gateway and MCP server"
+ },
+ {
+  "kind": "shot",
+  "t0": 137.5,
+  "t1": 142.3,
+  "cam": [
+   [
+    "box",
+    40,
+    1280,
+    961,
+    1690
+   ]
+  ],
+  "hl": [
+   30,
+   1285,
+   975,
+   1688
+  ],
+  "hl_at": 2.4,
+  "text": "A $50 paper Bitcoin order waits for the founder",
+  "tail": 2.5
+ },
+ {
+  "kind": "shot",
+  "t0": 142.8,
+  "t1": 148,
+  "cam": [
+   [
+    "box",
+    1985,
+    1430,
+    3420,
+    1660
+   ]
+  ],
+  "hl": [
+   1992,
+   1588,
+   3410,
+   1618
+  ],
+  "hl_at": 3,
+  "text": "Approved once. The order goes to Alpaca, on paper",
+  "tail": 2.5
+ },
+ {
+  "kind": "shot",
+  "t0": 152.5,
+  "t1": 158.5,
+  "cam": [
+   [
+    "box",
+    0,
+    1380,
+    1977,
+    1600
+   ]
+  ],
+  "text": "5  /arcade halt. One switch stops the whole firm"
+ },
+ {
+  "kind": "shot",
+  "t0": 161.5,
+  "t1": 171,
+  "speed": 2,
+  "cam": [
+   [
+    "box",
+    1985,
+    1430,
+    3420,
+    1720
+   ]
+  ],
+  "hl": [
+   1992,
+   1645,
+   3410,
+   1705
+  ],
+  "hl_at": 3,
+  "text": "The next order is denied before it runs. Reads still work",
+  "tail": 3
+ },
+ {
+  "kind": "card",
+  "seconds": 5,
+  "lines": [
+   [
+    "Arcade lets your agent check your email.",
+    58,
+    [
+     150,
+     146,
+     170
+    ],
+    false,
+    false
+   ],
+   [
+    "Arcade for Hermes lets you start a company that has email.",
+    58,
+    [
+     240,
+     236,
+     226
+    ],
+    true,
+    false
+   ],
+   [
+    "github.com/ArcadeAI/arcade-for-hermes",
+    32,
+    [
+     255,
+     159,
+     28
+    ],
+    false,
+    true
+   ]
+  ]
+ }
+]

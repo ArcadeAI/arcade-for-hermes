@@ -1,0 +1,14 @@
+{
+  "name": "arcade-for-hermes",
+  "label": "Floor",
+  "description": "8-bit trading floor drawn from Arcade receipts: every agent walks to the policy gate, denials bounce, ship actions wait at the founder's door until the phone says yes",
+  "icon": "Shield",
+  "version": "0.1.0",
+  "tab": {
+    "path": "/floor",
+    "position": "after:kanban"
+  },
+  "entry": "dist/index.js",
+  "css": "dist/style.css",
+  "api": "plugin_api.py"
+}

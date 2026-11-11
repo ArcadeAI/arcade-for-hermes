@@ -1,0 +1,17 @@
+name: koopa
+version: "0.1.0"
+description: >
+  Koopa: Bowser Capital's paper-trading desk for the Arcade for Hermes demo. Three tools on fixture
+  prices: koopa_propose (deterministic risk checks), koopa_execute (MOCK fill, ship action under the
+  Arcade policy), koopa_report (positions, cash, ledger reconciliation). A pre_tool_call veto stops
+  koopa_execute before any approval card when the proposal cannot execute. PAPER MODE only; with
+  KOOPA_BROKER=alpaca, orders go to Alpaca paper through Arcade, otherwise fills are MOCK.
+author: Thierry Damiba
+license: Apache-2.0
+requires_hermes: ">=0.22.5"
+provides_tools:
+  - koopa_propose
+  - koopa_execute
+  - koopa_report
+provides_hooks:
+  - pre_tool_call

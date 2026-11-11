@@ -1,0 +1,12 @@
+[project]
+name = "arcade-for-hermes"
+version = "0.1.0"
+description = "Arcade for Hermes: per-role Arcade identities, a look/draft/ship policy, native approvals and receipts for Hermes Agent."
+requires-python = ">=3.11"
+license = "Apache-2.0"
+dependencies = [
+    "arcadepy>=1.10.0,<1.11",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests", "examples/bowser/koopa/tests", "examples/imessage/tests"]

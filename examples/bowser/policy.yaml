@@ -1,0 +1,297 @@
+# Bowser Capital demo policy for Arcade for Hermes.
+# Everything Koopa- or Bowser-specific lives here, never in plugin code.
+# Tool names are the real Arcade names returned by `arcade_search_tools` on 2026-11-07
+# (Github toolkit 7.2.0, GoogleDocs toolkit 9.1.7). Unknown tools are denied.
+
+version: 1
+default: deny
+principal_prefix: bowser          # Arcade user_id = "bowser/<role>"
+# Per-role principals need your own OAuth apps in the Arcade project: Arcade's default apps only
+# accept the signed-in Arcade user. To test without them, every role can use your Arcade account:
+# shared_principal: you@example.com
+
+# Canonical toolkit -> aliases as they appear before the dot in Arcade tool names.
+toolkits:
+  github: [Github, GitHub]
+  google_docs: [GoogleDocs, Google_Docs]
+  alpaca: [ArcadeAlpaca]
+  e2b: [E2b]                      # code sandboxes for the quant firm's researchers
+  google_news: [GoogleNews]
+  google_search: [GoogleSearch]          # optional: your own Arcade-hosted Alpaca toolkit, paper account
+
+# Which tool to authorize per toolkit when /arcade connect runs (one consent per role per toolkit).
+connect:
+  github: Github.WhoAmI
+  google_docs: GoogleDocs.WhoAmI
+
+# Which Hermes profile plays which role. The main session (profile "default") is the Chief of Staff.
+profile_roles:
+  default: cos
+  cio: cio
+  skeptic: skeptic
+  reporter: reporter
+  risk: risk
+  # The swarm: many profiles, few roles. A role is a permission class, not an agent.
+  # `python examples/bowser/swarm.py 100` creates analyst-NNN, skeptic-NN, risk-NN, reporter-NN.
+  "analyst-*": analyst
+  "skeptic-*": skeptic
+  "risk-*": risk
+  "reporter-*": reporter
+  # The arena (examples/arena): two desks fight for a few minutes on a simulated market.
+  # Solo: red-trader trades. Firm (--crew firm): the CIO trades, the crew (analysts, skeptic) looks
+  # and talks. Exact names win over the wildcards.
+  red-trader: red
+  red-cio: red
+  blue-trader: blue
+  blue-cio: blue
+  # The quant firm (--crew quant): nine seats, eight permission classes. Exact names win over "red-*".
+  red-data: quant_data
+  red-researcher-1: quant_research
+  red-researcher-2: quant_research
+  red-quantdev: quant_dev
+  red-pm: quant_pm
+  red-riskmgr: quant_risk
+  red-exec: quant_exec
+  red-compliance: quant_compliance
+  red-ir: quant_ir
+  blue-data: quant_data
+  blue-researcher-1: quant_research
+  blue-researcher-2: quant_research
+  blue-quantdev: quant_dev
+  blue-pm: quant_pm
+  blue-riskmgr: quant_risk
+  blue-exec: quant_exec
+  blue-compliance: quant_compliance
+  blue-ir: quant_ir
+  "red-*": red_crew
+  "blue-*": blue_crew
+
+# First matching rule wins. A rule may match on input so one Arcade tool can be draft or ship.
+rules:
+  # --- GitHub: look ---
+  - {tool: Github.ListIssues, verb: look}
+  - {tool: Github.GetIssue, verb: look}
+  - {tool: Github.QueryIssues, verb: look}
+  - {tool: Github.GetRepository, verb: look}
+  - {tool: Github.ListRepositoryLabels, verb: look}
+  - {tool: Github.ListRepositoryConversationComments, verb: look}
+  - {tool: Github.WhoAmI, verb: look}
+  # --- GitHub: draft ---
+  - {tool: Github.CreateIssue, verb: draft}
+  - {tool: Github.CreateIssueComment, verb: draft}
+  - {tool: Github.UpdateIssueLabels, verb: draft}
+  # --- GitHub: UpdateIssue is ship when it closes an issue, draft otherwise ---
+  - name: close-issue
+    tool: Github.UpdateIssue
+    verb: ship
+    input: {state: closed}
+  - {tool: Github.UpdateIssue, verb: draft}
+
+  # --- Google Docs: look ---
+  - {tool: GoogleDocs.GetDocumentById, verb: look}
+  - {tool: GoogleDocs.GetDocumentAsDocmd, verb: look}
+  - {tool: GoogleDocs.GetDocumentMetadata, verb: look}
+  - {tool: GoogleDocs.SearchDocuments, verb: look}
+  - {tool: GoogleDocs.SearchAndRetrieveDocuments, verb: look}
+  - {tool: GoogleDocs.ListDocumentComments, verb: look}
+  - {tool: GoogleDocs.WhoAmI, verb: look}
+  # EditDocument reads when it carries no edit requests, edits otherwise.
+  - name: edit-document-read
+    tool: GoogleDocs.EditDocument
+    verb: look
+    input: {requests: "!"}
+  - {tool: GoogleDocs.EditDocument, verb: draft}
+  # --- Google Docs: draft ---
+  - {tool: GoogleDocs.CreateBlankDocument, verb: draft}
+  - {tool: GoogleDocs.CreateDocumentFromText, verb: draft}
+  - {tool: GoogleDocs.InsertTextAtEndOfDocument, verb: draft}
+  - {tool: GoogleDocs.CommentOnDocument, verb: draft}
+
+  # --- Koopa: local Hermes tools, paper trading only (fixture prices, MOCK fills) ---
+  - {tool: koopa_report, verb: look, toolkit: koopa}
+  - {tool: koopa_propose, verb: draft, toolkit: koopa}
+  - {tool: koopa_execute, verb: ship, toolkit: koopa}
+
+  # --- Arena: simulated market, paper books. Trading is draft: the founder's mandate (a budget and
+  # a style, set when the match starts) is the approval, and the desk holds every order to its caps.
+  - {tool: arena_market, verb: look, toolkit: arena}
+  - {tool: arena_trade, verb: draft, toolkit: arena}
+  - {tool: arena_note, verb: draft, toolkit: arena_talk}       # desk talk: moves no money
+  # Margin is past the founder's budget: ship, and no arena role holds arena_margin, so it is denied
+  # outright (no approval card: the founder said trade, don't bother me).
+  - {tool: arena_borrow, verb: ship, toolkit: arena_margin}
+  - {tool: arena_history, verb: look, toolkit: arena}
+  - {tool: arena_thesis, verb: draft, toolkit: arena_thesis}   # the firm's one bet: the PM's to set
+
+  # --- The quant firm's research kit ---
+  # Running code is not read-only, so E2B is draft: allowed for research seats without a card, and on
+  # the receipts. The sandbox is E2B's, not this machine.
+  - {tool: E2b.RunCode, verb: draft}
+  - {tool: E2b.CreateStaticMatplotlibChart, verb: draft}
+  - {tool: GoogleNews.SearchNewsStories, verb: look}
+  - {tool: GoogleSearch.Search, verb: look}
+  - {tool: GoogleSearch.SearchWebPages, verb: look}
+
+  # --- Alpaca (optional): reads for everyone; orders only through koopa_execute ---
+  # With KOOPA_BROKER=alpaca, an approved koopa_execute places the order itself, after Koopa's risk
+  # checks and the founder's card. The order tools are ship and no role holds alpaca.ship.
+  - {tool: ArcadeAlpaca.GetAccount, verb: look}
+  - {tool: ArcadeAlpaca.ListPositions, verb: look}
+  - {tool: ArcadeAlpaca.GetPosition, verb: look}
+  - {tool: ArcadeAlpaca.ListOrders, verb: look}
+  - {tool: ArcadeAlpaca.GetOrder, verb: look}
+  - {tool: ArcadeAlpaca.ListActivities, verb: look}
+  - {tool: ArcadeAlpaca.GetClock, verb: look}
+  - {tool: ArcadeAlpaca.GetAsset, verb: look}
+  - {tool: ArcadeAlpaca.GetLatestQuote, verb: look}
+  # amount: the input that carries dollars, checked against a role's limits (a qty-only order has no
+  # readable amount, so a limited role is denied it). exit: still runs, to the card, under /arcade halt.
+  - {tool: ArcadeAlpaca.SubmitOrder, verb: ship, amount: notional}
+  - {tool: ArcadeAlpaca.ReplaceOrder, verb: ship}
+  - {tool: ArcadeAlpaca.CancelOrder, verb: ship, exit: true}
+  - {tool: ArcadeAlpaca.CancelAllOrders, verb: ship, exit: true}
+  - {tool: ArcadeAlpaca.ClosePosition, verb: ship, exit: true}
+
+roles:
+  red:                              # arena desks: trade inside the mandate, nothing else
+    grants:
+      - {toolkit: arena, verbs: [look, draft]}
+      - {toolkit: arena_talk, verbs: [draft]}
+      - {toolkit: arena_thesis, verbs: [draft]}
+    deny_reasons:
+      arena_margin.ship: borrowing goes past the founder's budget
+  blue:
+    grants:
+      - {toolkit: arena, verbs: [look, draft]}
+      - {toolkit: arena_talk, verbs: [draft]}
+      - {toolkit: arena_thesis, verbs: [draft]}
+    deny_reasons:
+      arena_margin.ship: borrowing goes past the founder's budget
+  red_crew:                         # a firm's analysts and skeptic: read the market, talk, never trade
+    grants:
+      - {toolkit: arena, verbs: [look]}
+      - {toolkit: arena_talk, verbs: [draft]}
+    deny_reasons:
+      arena.draft: the crew calls trades; only the desk's CIO places them
+      arena_margin.ship: borrowing goes past the founder's budget
+  blue_crew:
+    grants:
+      - {toolkit: arena, verbs: [look]}
+      - {toolkit: arena_talk, verbs: [draft]}
+    deny_reasons:
+      arena.draft: the crew calls trades; only the desk's CIO places them
+      arena_margin.ship: borrowing goes past the founder's budget
+  quant_data:                    # news, search and the screener: finds what is worth a look
+    grants:
+      - {toolkit: arena, verbs: [look]}
+      - {toolkit: arena_talk, verbs: [draft]}
+      - {toolkit: google_news, verbs: [look]}
+      - {toolkit: google_search, verbs: [look]}
+    deny_reasons:
+      arena.draft: only Execution places orders
+      arena_margin.ship: borrowing goes past the founder's budget
+  quant_research:                # tests the thesis in code on real history
+    grants:
+      - {toolkit: arena, verbs: [look]}
+      - {toolkit: arena_talk, verbs: [draft]}
+      - {toolkit: e2b, verbs: [draft]}
+    deny_reasons:
+      arena.draft: only Execution places orders
+      arena_margin.ship: borrowing goes past the founder's budget
+  quant_dev:                     # tries to break the research: lookahead, costs, overfitting
+    grants:
+      - {toolkit: arena, verbs: [look]}
+      - {toolkit: arena_talk, verbs: [draft]}
+      - {toolkit: e2b, verbs: [draft]}
+    deny_reasons:
+      arena.draft: only Execution places orders
+      arena_margin.ship: borrowing goes past the founder's budget
+  quant_pm:                      # owns the thesis and the targets; does not trade
+    grants:
+      - {toolkit: arena, verbs: [look]}
+      - {toolkit: arena_talk, verbs: [draft]}
+      - {toolkit: arena_thesis, verbs: [draft]}
+    deny_reasons:
+      arena.draft: only Execution places orders
+      arena_margin.ship: borrowing goes past the founder's budget
+  quant_risk:                    # exposure, drawdown, concentration; vetoes on the desk
+    grants:
+      - {toolkit: arena, verbs: [look]}
+      - {toolkit: arena_talk, verbs: [draft]}
+    deny_reasons:
+      arena.draft: only Execution places orders
+      arena_margin.ship: borrowing goes past the founder's budget
+  quant_exec:                    # the only seat that trades
+    grants:
+      - {toolkit: arena, verbs: [look, draft]}
+      - {toolkit: arena_talk, verbs: [draft]}
+    deny_reasons:
+      e2b.draft: Execution trades; research runs code
+      arena_margin.ship: borrowing goes past the founder's budget
+  quant_compliance:              # holds the desk to the mandate and the thesis
+    grants:
+      - {toolkit: arena, verbs: [look]}
+      - {toolkit: arena_talk, verbs: [draft]}
+    deny_reasons:
+      arena.draft: only Execution places orders
+      arena_margin.ship: borrowing goes past the founder's budget
+  quant_ir:                      # writes the LP letter
+    grants:
+      - {toolkit: arena, verbs: [look]}
+      - {toolkit: arena_talk, verbs: [draft]}
+      - {toolkit: google_docs, verbs: [look, draft]}
+    deny_reasons:
+      arena.draft: only Execution places orders
+      arena_margin.ship: borrowing goes past the founder's budget
+  cos:                              # Chief of Staff: the main session; the only role that ships money
+    grants:
+      - {toolkit: github, verbs: [look, draft, ship]}
+      - {toolkit: google_docs, verbs: [look]}
+      - {toolkit: koopa, verbs: [look, draft, ship]}
+      - {toolkit: alpaca, verbs: [look]}
+    deny_reasons:
+      alpaca.ship: orders go through koopa_execute only, after the risk checks
+  cio:
+    grants:
+      - {toolkit: github, verbs: [look]}
+      - {toolkit: google_docs, verbs: [look, draft]}
+      - {toolkit: koopa, verbs: [look, draft]}
+      - {toolkit: alpaca, verbs: [look]}
+    deny_reasons:
+      github.ship: the CIO proposes, the founder closes
+      alpaca.ship: orders go through koopa_execute only, after the risk checks
+  analyst:                          # one per covered asset; same grants as the CIO
+    grants:
+      - {toolkit: github, verbs: [look]}
+      - {toolkit: google_docs, verbs: [look, draft]}
+      - {toolkit: koopa, verbs: [look, draft]}
+      - {toolkit: alpaca, verbs: [look]}
+    deny_reasons:
+      github.ship: analysts propose, the founder closes
+      alpaca.ship: orders go through koopa_execute only, after the risk checks
+  risk:                             # looks at everything, files one ranking comment
+    grants:
+      - {toolkit: github, verbs: [look, draft]}
+      - {toolkit: google_docs, verbs: [look]}
+      - {toolkit: koopa, verbs: [look]}
+      - {toolkit: alpaca, verbs: [look]}
+    deny_reasons:
+      koopa.draft: risk ranks proposals, it does not make them
+  skeptic:
+    grants:
+      - {toolkit: github, verbs: [look, draft]}
+      - {toolkit: google_docs, verbs: [look]}
+      - {toolkit: koopa, verbs: [look]}
+      - {toolkit: alpaca, verbs: [look]}
+    deny_reasons:
+      google_docs.draft: skeptics comment, they don't rewrite
+  reporter:
+    grants:
+      - {toolkit: github, verbs: [look, ship]}
+      - {toolkit: google_docs, verbs: [look, draft]}
+      - {toolkit: koopa, verbs: [look]}
+      - {toolkit: alpaca, verbs: [look]}
+    deny_reasons:
+      koopa.draft: the reporter reports; it does not propose trades
+      koopa.ship: the reporter reports; money moves only on the founder's own card
+      alpaca.ship: orders go through koopa_execute only, after the risk checks

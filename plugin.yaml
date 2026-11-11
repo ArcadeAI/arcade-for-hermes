@@ -1,0 +1,56 @@
+name: arcade-for-hermes
+version: "0.1.0"
+manifest_version: 2
+api_version: 1
+license: Apache-2.0
+homepage: https://github.com/ArcadeAI/arcade-for-hermes
+author: Thierry Damiba
+description: >
+  Arcade's tools for Hermes with one Arcade principal per agent role, a
+  look/draft/ship policy enforced in pre_tool_call, Hermes's native approval
+  gate for ship actions, and a receipt for every call. A starter kit for an
+  AI company: describe it or pick a template, and every one of Arcade's
+  8,000+ tools gets a verb, from yolo (no cards) to strict.
+tags: [tools, governance, approvals, arcade]
+requires_hermes: ">=0.22.5"
+requires_env:
+  - name: ARCADE_API_KEY
+    description: "Arcade API key (api.arcade.dev). Read through Hermes's secret scope, never from files."
+    url: "https://api.arcade.dev/dashboard/api-keys"
+    secret: true
+provides_tools:
+  - arcade_search_tools
+  - arcade_authorize
+  - arcade_execute
+  - arcade_whoami
+  - arcade_draft_company
+provides_hooks:
+  - pre_tool_call
+  - post_tool_call
+  - post_approval_response
+  - transform_tool_result
+  - pre_api_request
+  - post_api_request
+  - api_request_error
+  - on_interim_message
+config_schema:
+  policy_path:
+    type: str
+    default: ""
+    description: "Path to policy.yaml. Empty: <HERMES_HOME>/arcade/policy.yaml, then the bundled policy.example.yaml."
+  receipts_path:
+    type: str
+    default: ""
+    description: "Path to receipts.jsonl. Empty: <launch HERMES_HOME>/plugin-data/arcade-for-hermes/receipts.jsonl."
+  verifier_host:
+    type: str
+    default: "127.0.0.1"
+    description: "Bind address of the custom user verifier that /arcade connect starts (Arcade projects set to 'Custom user verifier')."
+  verifier_port:
+    type: int
+    default: 8765
+    description: "Port of the custom user verifier."
+  verifier_public_url:
+    type: str
+    default: ""
+    description: "URL Arcade should redirect to when it differs from http://<host>:<port> (a tunnel, for example)."
